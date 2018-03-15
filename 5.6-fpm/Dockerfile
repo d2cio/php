@@ -2,13 +2,7 @@ FROM php:5.6-fpm
 
 ENV PHP_EXTRA_CONFIGURE_ARGS --enable-fpm --with-fpm-user=root --with-fpm-group=root
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
-
-RUN useradd -g root -u 1000 -ms /bin/bash deploy
-
-ENV COMPOSER_HOME /home/deploy/.composer
-
-RUN echo 'composer() { su -p deploy -c "/usr/local/bin/composer.phar $*"; }' >> ~/.bashrc
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin && ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y git zip unzip zlib1g-dev gnupg \
   --no-install-recommends && rm -r /var/lib/apt/lists/*
