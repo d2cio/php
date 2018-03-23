@@ -7,6 +7,9 @@ ENV WP_CLI_CACHE_DIR /tmp/.wp-cli/cache/
 
 RUN echo 'composer() { su -p www-data -s /bin/sh -c "/usr/local/bin/composer.phar $*"; }' >> ~/.bashrc
 
+RUN curl https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb -o mod-pagespeed.deb && dpkg -i mod-pagespeed.deb && apt-get --yes --fix-broken install
+RUN a2enmod rewrite pagespeed
+
 RUN apt-get update && apt-get install -y git zip unzip zlib1g-dev gnupg \
   --no-install-recommends && rm -r /var/lib/apt/lists/*
 
