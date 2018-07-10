@@ -1,11 +1,10 @@
 FROM php:7.2-apache
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin && ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 
 ENV COMPOSER_HOME /tmp/.composer
 ENV WP_CLI_CACHE_DIR /tmp/.wp-cli/cache/
-
-RUN echo 'composer() { su -p www-data -s /bin/sh -c "/usr/local/bin/composer.phar $*"; }' >> ~/.bashrc
+ENV COMPOSER_NO_INTERACTION=1
 
 RUN curl https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb -o mod-pagespeed.deb && dpkg -i mod-pagespeed.deb && apt-get --yes --fix-broken install
 RUN a2enmod rewrite pagespeed
