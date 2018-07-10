@@ -6,7 +6,7 @@ ENV COMPOSER_HOME /tmp/.composer
 ENV WP_CLI_CACHE_DIR /tmp/.wp-cli/cache/
 ENV COMPOSER_NO_INTERACTION=1
 
-RUN apt-get update && apt-get install -y git zip unzip zlib1g-dev gnupg libcap2-bin \
+RUN apt-get update && apt-get install -y git zip unzip zlib1g-dev gnupg dirmngr libcap2-bin \
   --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 RUN gpg --keyserver subkeys.pgp.net --recv 1397BC53640DB551 && gpg --export --armor 1397BC53640DB551 | sudo apt-key add --
