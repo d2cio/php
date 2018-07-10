@@ -6,6 +6,7 @@ ENV COMPOSER_HOME /tmp/.composer
 ENV WP_CLI_CACHE_DIR /tmp/.wp-cli/cache/
 ENV COMPOSER_NO_INTERACTION=1
 
+RUN gpg --keyserver subkeys.pgp.net --recv 1397BC53640DB551 && gpg --export --armor 1397BC53640DB551 | sudo apt-key add --
 RUN curl https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb -o mod-pagespeed.deb && dpkg -i mod-pagespeed.deb && apt-get --yes --fix-broken install
 RUN a2enmod rewrite pagespeed
 
